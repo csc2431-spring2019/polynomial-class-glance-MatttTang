@@ -33,10 +33,61 @@ Polynomial::Polynomial(const Polynomial& polynomial): _degree(polynomial._degree
 	}
 }
 Polynomial::~Polynomial(){
+	delete[] _coefficients;
+	_coefficients = nullptr;
 	// DO THIS FIRST TO PREVENT MEMORY LEAKS!
 }
 const Polynomial Polynomial::Sum(const Polynomial& rhs)const{
-	return Polynomial(0);
+	/*if the degree of rhs is greater than the degree of the particular
+	polynomial, only add up to the maximum degree of the particular polynomial*/
+	//Polynomial sumArr(*this);
+	if (rhs._degree > _degree)
+	{
+		// Create a new Polynomial, with degrees = rhs
+		Polynomial sumArr(rhs);
+		// put rhs into the new array
+		for (size_t i = 0; i < sumArr._degree + 1; i++)
+		{
+			sumArr._coefficients[i] = rhs._coefficients[i];
+			std::cout << sumArr._coefficients[i] << std::endl;
+		}
+		std::cout << "cut" << std::endl;
+		// add polynomial to the rhs coefficents in the new array
+		for (size_t j = 0; j < _degree + 1; j++)
+		{
+			sumArr._coefficients[j] += _coefficients[j];
+			std::cout << sumArr._coefficients[j] << std::endl;
+		}
+	}
+	// Redo but with the rhs degrees being less
+	else
+	{
+		Polynomial sumArr(*this);
+		for (size_t i = 0; i < sumArr._degree + 1; i++)
+		{
+			sumArr._coefficients[i] = _coefficients[i];
+		}
+		for (size_t j = 0; j < rhs._degree + 1; j++)
+		{
+			sumArr._coefficients[j] += rhs._coefficients[j];
+			std::cout << "hello";
+			std::cout << sumArr._coefficients[j] << std::endl;
+		}
+
+	}
+	std::cout << "rhs array" << std::endl;
+	for (size_t q = 0; q < rhs._degree + 1; q++)
+	{
+		std::cout << rhs._coefficients[q] << std::endl;
+	}
+
+	std::cout << "poly array" << std::endl;
+	for (size_t w = 0; w < _degree + 1; w++)
+	{
+		std::cout << _coefficients[w] << std::endl;
+	}
+
+	return 1;
 }
 const Polynomial Polynomial::Subtract(const Polynomial& rhs)const{
 	return Polynomial(0);
