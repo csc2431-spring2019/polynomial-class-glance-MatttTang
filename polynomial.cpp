@@ -41,7 +41,7 @@ const Polynomial Polynomial::Sum(const Polynomial& rhs)const{
 	/*if the degree of rhs is greater than the degree of the particular
 	polynomial, only add up to the maximum degree of the particular polynomial*/
 	//Polynomial sumArr(*this);
-	if (rhs._degree > _degree)
+	/*if (rhs._degree > _degree)
 	{
 		// Create a new Polynomial, with degrees = rhs
 		Polynomial sumArr(rhs);
@@ -60,7 +60,7 @@ const Polynomial Polynomial::Sum(const Polynomial& rhs)const{
 		}
 	}
 	// Redo but with the rhs degrees being less
-	else
+	/*else
 	{
 		Polynomial sumArr(*this);
 		for (size_t i = 0; i < sumArr._degree + 1; i++)
@@ -86,8 +86,20 @@ const Polynomial Polynomial::Sum(const Polynomial& rhs)const{
 	{
 		std::cout << _coefficients[w] << std::endl;
 	}
+	*/
+	Polynomial sumArr(rhs);
 
-	return 1;
+	for (size_t i = 0; i < sumArr._degree + 1; i++)
+	{
+		sumArr._coefficients[i] = rhs._coefficients[i];
+	}
+
+	for (size_t j = 0; j < _degree + 1; j++)
+	{
+		sumArr._coefficients[j] += _coefficients[j];
+	}
+	
+	return sumArr;
 }
 const Polynomial Polynomial::Subtract(const Polynomial& rhs)const{
 	return Polynomial(0);
