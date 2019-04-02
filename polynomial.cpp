@@ -98,11 +98,25 @@ const Polynomial Polynomial::Sum(const Polynomial& rhs)const{
 	{
 		sumArr._coefficients[j] += _coefficients[j];
 	}
-	
+
 	return sumArr;
 }
 const Polynomial Polynomial::Subtract(const Polynomial& rhs)const{
-	return Polynomial(0);
+
+	Polynomial subArr(*this);
+	for (size_t i = 0; i < subArr._degree + 1; i++)
+	{
+		subArr._coefficients[i] = _coefficients[i];
+		//std::cout << subArr._coefficients << std::endl;
+		//std::cout << rhs._coefficients << std::endl;
+	}
+
+	for (size_t j = 0; j < _degree + 1; j++)
+	{
+		subArr._coefficients[j] -= rhs._coefficients[j];
+	}
+
+	return subArr;
 }
 const Polynomial Polynomial::Minus()const{
 	Polynomial retVal(*this);
