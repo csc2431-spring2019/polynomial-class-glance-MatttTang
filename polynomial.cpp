@@ -117,6 +117,7 @@ const Polynomial Polynomial::Subtract(const Polynomial& rhs)const{
 	}
 
 	return subArr;
+
 }
 const Polynomial Polynomial::Minus()const{
 	Polynomial retVal(*this);
@@ -132,7 +133,26 @@ const Polynomial Polynomial::Divide(const Polynomial& rhs)const{
 	return Polynomial(0);
 }
 const Polynomial Polynomial::Derive()const{
-	return Polynomial(0);
+	Polynomial deriveArr(*this);
+
+	std::cout << deriveArr._degree << std::endl;
+
+	for (size_t i = 0; i < _degree + 1; i++)
+	{
+		deriveArr._coefficients[i] = _coefficients[i];
+		std::cout << deriveArr._coefficients[i] << std::endl;
+	}
+
+	std::cout << "break" << std::endl;
+	for (size_t j = 1; j < deriveArr._degree + 1; j++)
+	{
+		deriveArr._coefficients[j] = deriveArr._coefficients[j] * j;
+		std::cout << deriveArr._coefficients[j] << std::endl;
+	}
+	deriveArr._degree -= 1;
+	std::cout << deriveArr._degree << std::endl;
+
+	return deriveArr;
 }
 float Polynomial::Evaluate(float x)const{
 	return FLT_MAX;
