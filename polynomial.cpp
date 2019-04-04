@@ -60,7 +60,7 @@ const Polynomial Polynomial::Sum(const Polynomial& rhs)const{
 		}
 	}
 	// Redo but with the rhs degrees being less
-	/*else
+	else
 	{
 		Polynomial sumArr(*this);
 		for (size_t i = 0; i < sumArr._degree + 1; i++)
@@ -135,22 +135,26 @@ const Polynomial Polynomial::Divide(const Polynomial& rhs)const{
 const Polynomial Polynomial::Derive()const{
 	Polynomial deriveArr(*this);
 
-	std::cout << deriveArr._degree << std::endl;
+	std::cout << "the degree is " << deriveArr._degree << std::endl;
 
+	std::cout << "The array of coefficients is ";
 	for (size_t i = 0; i < _degree + 1; i++)
 	{
 		deriveArr._coefficients[i] = _coefficients[i];
-		std::cout << deriveArr._coefficients[i] << std::endl;
+		std::cout << deriveArr._coefficients[i] << "  ";
 	}
 
-	std::cout << "break" << std::endl;
-	for (size_t j = 1; j < deriveArr._degree + 1; j++)
+	std::cout << std::endl;
+
+	std::cout << "The new array of coefficients is ";
+	for (size_t j = 0; j < deriveArr._degree + 1; j++)
 	{
 		deriveArr._coefficients[j] = deriveArr._coefficients[j] * j;
-		std::cout << deriveArr._coefficients[j] << std::endl;
+		std::cout << deriveArr._coefficients[j] << "  ";
 	}
+	std::cout << std::endl;
 	deriveArr._degree -= 1;
-	std::cout << deriveArr._degree << std::endl;
+	std::cout << "The new degree is " << deriveArr._degree << std::endl;
 
 	return deriveArr;
 }
