@@ -128,7 +128,28 @@ const Polynomial Polynomial::Minus()const{
 	return retVal;
 }
 const Polynomial Polynomial::Multiply(const Polynomial& rhs)const{
-	return Polynomial(0);
+	Polynomial multArr(*this);
+
+	multArr._degree = rhs._degree + _degree;
+
+	for (size_t q = 0; q < multArr._degree + 1; q++)
+	{
+		multArr._coefficients[q] = 0;
+	}
+
+	for (size_t i = 0; i < _degree + 1; i ++)
+	{
+		for (size_t j = 0; j < rhs._degree + 1; j++)
+		{
+			multArr._coefficients[i + j] = _coefficients[i] * rhs._coefficients[j] + multArr._coefficients[i + j];
+		}
+	}
+
+	/*for (size_t z = 0; z < multArr._degree + 1; z++)
+	{
+		std::cout << multArr._coefficients[z] << std::endl;
+	}*/
+	return multArr;
 }
 const Polynomial Polynomial::Divide(const Polynomial& rhs)const{
 	return Polynomial(0);

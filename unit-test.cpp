@@ -9,8 +9,8 @@ using std::stringstream;
 
 int main(int argc, char* argv[]){
 	stringstream data[5];
-	data[0].str("3 -1 2 0 -2.5");
-	data[1].str("4 -1 -2 0 0 3");
+	data[0].str("3 -1 2   0 -2.5");
+	data[1].str("4 -1 -2 0   0    3");
 	data[2].str("2 -1 0 4");
 	data[3].str("3 -6 -5 2 1");
 	data[4].str("1 -2 1");
