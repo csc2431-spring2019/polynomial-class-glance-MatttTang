@@ -5,6 +5,7 @@
 #include <sstream>
 #include <iomanip>
 #include <cfloat>
+#include <cmath>
 
 using std::istream;
 using std::ostream;
@@ -166,7 +167,16 @@ const Polynomial Polynomial::Derive()const{
 	return deriveArr;
 }
 float Polynomial::Evaluate(float x)const{
-	return FLT_MAX;
+	float retVal = 0;
+
+	Polynomial evalArr(*this);
+	for (size_t i = 0; i < _degree + 1; i++)
+	{
+		//evalArr._coefficients[i] = _coefficients[i];
+		evalArr._coefficients[i] = pow(x, i) * _coefficients[i];
+		retVal = evalArr._coefficients[i] + retVal;
+	}
+	return retVal;
 }
 float Polynomial::Integrate(float start, float end)const{
 	return FLT_MAX;
