@@ -144,7 +144,7 @@ const Polynomial Polynomial::Derive()const{
 		//std::cout << deriveArr._coefficients[i] << "  ";
 	}
 
-	deriveArr._coefficients[0] = 0;
+	//deriveArr._coefficients[0] = 0;
 
 	//std::cout << std::endl;
 
@@ -152,7 +152,12 @@ const Polynomial Polynomial::Derive()const{
 	for (size_t j = 0; j < deriveArr._degree + 1; j++)
 	{
 		deriveArr._coefficients[j] = deriveArr._coefficients[j] * j;
-		std::cout << deriveArr._coefficients[j] << "  ";
+		//std::cout << deriveArr._coefficients[j] << "  ";
+	}
+
+	for (size_t z = 0; z < deriveArr._degree; z++)
+	{
+		deriveArr._coefficients[z] = deriveArr._coefficients[z + 1];
 	}
 	//std::cout << std::endl;
 	deriveArr._degree -= 1;
