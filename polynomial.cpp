@@ -1,3 +1,11 @@
+// Class 2431 Spring 2019, Data Structures 2
+//
+// Professor: Carlos Arias
+//
+// Author: Matthew Tang
+
+
+
 #include "polynomial.h"
 
 #include <iostream>
@@ -38,57 +46,14 @@ Polynomial::~Polynomial(){
 	_coefficients = nullptr;
 	// DO THIS FIRST TO PREVENT MEMORY LEAKS!
 }
+// Sum returns a new polynomial that is the addition of the rhs polynomial, and
+// The polynomial started with
 const Polynomial Polynomial::Sum(const Polynomial& rhs)const{
-	/*if the degree of rhs is greater than the degree of the particular
-	polynomial, only add up to the maximum degree of the particular polynomial*/
-	//Polynomial sumArr(*this);
-	/*if (rhs._degree > _degree)
-	{
-		// Create a new Polynomial, with degrees = rhs
-		Polynomial sumArr(rhs);
-		// put rhs into the new array
-		for (size_t i = 0; i < sumArr._degree + 1; i++)
-		{
-			sumArr._coefficients[i] = rhs._coefficients[i];
-			std::cout << sumArr._coefficients[i] << std::endl;
-		}
-		std::cout << "cut" << std::endl;
-		// add polynomial to the rhs coefficents in the new array
-		for (size_t j = 0; j < _degree + 1; j++)
-		{
-			sumArr._coefficients[j] += _coefficients[j];
-			std::cout << sumArr._coefficients[j] << std::endl;
-		}
-	}
-	// Redo but with the rhs degrees being less
-	else
-	{
-		Polynomial sumArr(*this);
-		for (size_t i = 0; i < sumArr._degree + 1; i++)
-		{
-			sumArr._coefficients[i] = _coefficients[i];
-		}
-		for (size_t j = 0; j < rhs._degree + 1; j++)
-		{
-			sumArr._coefficients[j] += rhs._coefficients[j];
-			std::cout << "hello";
-			std::cout << sumArr._coefficients[j] << std::endl;
-		}
-
-	}
-	std::cout << "rhs array" << std::endl;
-	for (size_t q = 0; q < rhs._degree + 1; q++)
-	{
-		std::cout << rhs._coefficients[q] << std::endl;
-	}
-
-	std::cout << "poly array" << std::endl;
-	for (size_t w = 0; w < _degree + 1; w++)
-	{
-		std::cout << _coefficients[w] << std::endl;
-	}
-	*/
 	Polynomial sumArr(rhs);
+	// Make sure the new sum array has enough space to fit the highest degree
+	// polynomial
+	if (_degree > rhs._degree)
+		sumArr._degree = _degree;
 
 	for (size_t i = 0; i < sumArr._degree + 1; i++)
 	{
@@ -102,14 +67,13 @@ const Polynomial Polynomial::Sum(const Polynomial& rhs)const{
 
 	return sumArr;
 }
+// Subtract is the polynnomial we started with minus the rhs polynomial
 const Polynomial Polynomial::Subtract(const Polynomial& rhs)const{
 
 	Polynomial subArr(*this);
 	for (size_t i = 0; i < subArr._degree + 1; i++)
 	{
 		subArr._coefficients[i] = _coefficients[i];
-		//std::cout << subArr._coefficients << std::endl;
-		//std::cout << rhs._coefficients << std::endl;
 	}
 
 	for (size_t j = 0; j < _degree + 1; j++)
@@ -120,6 +84,7 @@ const Polynomial Polynomial::Subtract(const Polynomial& rhs)const{
 	return subArr;
 
 }
+
 const Polynomial Polynomial::Minus()const{
 	Polynomial retVal(*this);
 	for (size_t i = 0; i < _degree + 1; i++) {
@@ -127,16 +92,22 @@ const Polynomial Polynomial::Minus()const{
 	}
 	return retVal;
 }
+
+// Multiply multiplies the 2 polynomials by eachother
 const Polynomial Polynomial::Multiply(const Polynomial& rhs)const{
 	Polynomial multArr(*this);
 
+	// the new polynomial's degree is the first 2 added together
 	multArr._degree = rhs._degree + _degree;
 
+	// Initialize the new polynomial to 0 at first
 	for (size_t q = 0; q < multArr._degree + 1; q++)
 	{
 		multArr._coefficients[q] = 0;
 	}
 
+	// Using a for-loop, iterate through one polynomial, multiplying by each of
+	// of the other polynomials terms, nested for-loop
 	for (size_t i = 0; i < _degree + 1; i ++)
 	{
 		for (size_t j = 0; j < rhs._degree + 1; j++)
@@ -144,56 +115,50 @@ const Polynomial Polynomial::Multiply(const Polynomial& rhs)const{
 			multArr._coefficients[i + j] = _coefficients[i] * rhs._coefficients[j] + multArr._coefficients[i + j];
 		}
 	}
-
-	/*for (size_t z = 0; z < multArr._degree + 1; z++)
-	{
-		std::cout << multArr._coefficients[z] << std::endl;
-	}*/
 	return multArr;
 }
 const Polynomial Polynomial::Divide(const Polynomial& rhs)const{
 	return Polynomial(0);
 }
+
+// Derive take the derivative of the polynomial, multiplying by its power, and
+// reducing the power by 1 for each term
 const Polynomial Polynomial::Derive()const{
 	Polynomial deriveArr(*this);
 
-	//std::cout << "the degree is " << deriveArr._degree << std::endl;
-
-	//std::cout << "The array of coefficients is ";
+	// Create a new polynomial, with the same terms as the one given
 	for (size_t i = 0; i < _degree + 1; i++)
 	{
 		deriveArr._coefficients[i] = _coefficients[i];
-		//std::cout << deriveArr._coefficients[i] << "  ";
 	}
 
-	//deriveArr._coefficients[0] = 0;
-
-	//std::cout << std::endl;
-
-	//std::cout << "The new array of coefficients is ";
+	// Multiply the terms by their degree
 	for (size_t j = 0; j < deriveArr._degree + 1; j++)
 	{
 		deriveArr._coefficients[j] = deriveArr._coefficients[j] * j;
-		//std::cout << deriveArr._coefficients[j] << "  ";
 	}
 
+	// Shift the array to account for the 0 degree term to go to 0
 	for (size_t z = 0; z < deriveArr._degree; z++)
 	{
 		deriveArr._coefficients[z] = deriveArr._coefficients[z + 1];
 	}
-	//std::cout << std::endl;
-	deriveArr._degree -= 1;
-	//std::cout << "The new degree is " << deriveArr._degree << std::endl;
 
+	// subtract the degree by 1
+	deriveArr._degree -= 1;
 	return deriveArr;
 }
+
+// Evaluate plugs in a number for x in the polynomial, and realizes the value
+// of the polynomial
 float Polynomial::Evaluate(float x)const{
+
 	float retVal = 0;
 
 	Polynomial evalArr(*this);
+	// plug in the value of float x into the polynomial with cmath
 	for (size_t i = 0; i < _degree + 1; i++)
 	{
-		//evalArr._coefficients[i] = _coefficients[i];
 		evalArr._coefficients[i] = pow(x, i) * _coefficients[i];
 		retVal = evalArr._coefficients[i] + retVal;
 	}
